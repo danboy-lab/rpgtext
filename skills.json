@@ -1,0 +1,112 @@
+{
+  "skills": {
+    "physical": [
+      {
+        "id": "slash",
+        "name": "Slash",
+        "description": "A basic sword attack that deals moderate damage",
+        "damage": 8,
+        "mana_cost": 0,
+        "type": "physical",
+        "level_required": 1,
+        "target": "enemy",
+        "cooldown": 0
+      },
+      {
+        "id": "heavy_strike",
+        "name": "Heavy Strike",
+        "description": "A powerful attack that deals high damage but has a cooldown",
+        "damage": 15,
+        "mana_cost": 5,
+        "type": "physical",
+        "level_required": 3,
+        "target": "enemy",
+        "cooldown": 2
+      },
+      {
+        "id": "double_slash",
+        "name": "Double Slash",
+        "description": "Two quick attacks in succession",
+        "damage": 6,
+        "mana_cost": 3,
+        "type": "physical",
+        "level_required": 5,
+        "target": "enemy",
+        "cooldown": 1
+      }
+    ],
+    "magical": [
+      {
+        "id": "fireball",
+        "name": "Fireball",
+        "description": "Launches a ball of fire that deals magical damage",
+        "damage": 12,
+        "mana_cost": 8,
+        "type": "magical",
+        "level_required": 2,
+        "target": "enemy",
+        "cooldown": 0
+      },
+      {
+        "id": "ice_shard",
+        "name": "Ice Shard",
+        "description": "Fires sharp ice crystals that may freeze the enemy",
+        "damage": 10,
+        "mana_cost": 7,
+        "type": "magical",
+        "level_required": 4,
+        "target": "enemy",
+        "cooldown": 0
+      },
+      {
+        "id": "lightning_bolt",
+        "name": "Lightning Bolt",
+        "description": "Strikes the enemy with a powerful lightning attack",
+        "damage": 14,
+        "mana_cost": 10,
+        "type": "magical",
+        "level_required": 6,
+        "target": "enemy",
+        "cooldown": 1
+      }
+    ],
+    "support": [
+      {
+        "id": "heal",
+        "name": "Heal",
+        "description": "Restores a small amount of health",
+        "healing": 10,
+        "mana_cost": 6,
+        "type": "support",
+        "level_required": 3,
+        "target": "self",
+        "cooldown": 2
+      },
+      {
+        "id": "power_up",
+        "name": "Power Up",
+        "description": "Increases attack power for the next turn",
+        "buff": "atk+3",
+        "mana_cost": 4,
+        "type": "support",
+        "level_required": 4,
+        "target": "self",
+        "cooldown": 3
+      },
+      {
+        "id": "defense_stance",
+        "name": "Defense Stance",
+        "description": "Increases defense for the next turn",
+        "buff": "defense+3",
+        "mana_cost": 4,
+        "type": "support",
+        "level_required": 2,
+        "target": "self",
+        "cooldown": 3
+      }
+    ]
+  },
+  "skill_categories": ["physical", "magical", "support"],
+  "version": "1.0.0",
+  "last_updated": "2025-08-26"
+}
