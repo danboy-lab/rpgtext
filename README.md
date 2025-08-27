@@ -50,7 +50,7 @@ A text-based RPG game built in Python with character progression, combat system,
 
 ### Running the Game
 ```bash
-python src/main.py
+python -m src.main
 ```
 
 ## 🎮 How to Play
