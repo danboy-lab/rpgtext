@@ -5,5 +5,4 @@ with open("skills.json", "r", encoding="utf-8") as file:
 
 for category in data["skills"]:
     for skill in data["skills"][category]:
-        print(skill["name"])
-        print()
+        skill["name"]

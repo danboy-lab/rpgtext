@@ -3,6 +3,7 @@ from enemys import Goblin
 from skillsys import data
 
 namesskillsdisponiveis = []
+escaped = False  # Initialize escaped to False
 
 def getnamesskillsdisponiveis():
     namesskillsdisponiveis.clear()  # Clear the list to avoid duplicates
@@ -37,7 +38,7 @@ def player_attack():
     action = input("Qual ataque deseja usar? ")
     
     skill = find_skill_by_name(action)
-    if skill and action in namesskillsdisponiveis:
+    if skill and action.capitalize() in namesskillsdisponiveis:
         if Player.mana >= skill["mana_cost"]:
             Player.mana -= skill["mana_cost"]
             damage = calculate_damage(Player, Goblin, skill)
@@ -58,7 +59,11 @@ def enemy_attack():
     print(f"Sua vida: {Player.life}")
 
 def run():
-    print("Você tentou fugir, mas não conseguiu!")
+    if Player.agi > Goblin.agi:
+        print("Você conseguiu fugir!")
+    elif Player.agi < Goblin.agi:
+        print("Você tentou fugir mas não conseguiu, então tomou um ataque!")
+        enemy_attack()
 
 def use_item():
     print("Sistema de itens ainda não implementado")
@@ -76,7 +81,6 @@ def ui():
                 enemy_attack()
         elif action == 2:
             run()
-            enemy_attack()
         elif action == 3:
             use_item()
             enemy_attack()
@@ -90,7 +94,7 @@ def ui():
 def combat_loop():
     print("Você entrou em combate com um Goblin!")
     
-    while Player.life > 0 and Goblin.life > 0:
+    while Player.life > 0 and Goblin.life > 0 and not escaped:
         ui()
         
         if Goblin.life <= 0:
@@ -102,5 +106,6 @@ def combat_loop():
             print("\nVocê foi derrotado!")
             break
 
-# Start combat
-combat_loop()
+# Start combat only when run directly
+if __name__ == "__main__":
+    #combat_loop()
