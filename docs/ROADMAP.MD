@@ -6,23 +6,33 @@ A text-based RPG game built in Python with character progression, combat system,
 ## 📋 Current Features (Implemented)
 
 ### Core Systems
-- **Character System** (`charactersys.py`)
+- **Character System** (`src/charactersys.py`)
   - Character class with stats (life, mana, xp, atk, DEF, lvl)
   - Leveling system with XP requirements
   - Combat mechanics with damage calculation
   - Player instance with balanced starting stats
 
-- **Enemy System** (`enemys.py`)
+- **Enemy System** (`src/enemys.py`)
   - Goblin enemy with predefined stats
   - Easy to extend with more enemy types
 
-- **Map System** (`map.py`)
+- **Combat System** (`src/combat.py`)
+  - Turn-based combat with attack/defense mechanics
+  - Skill-based combat system
+  - XP gain from defeating enemies
+
+- **Map System** (`src/map.py`)
   - 5x5 grid map with different terrain values
   - Player position tracking
   - Movement system (WASD controls)
   - Visual map display with player marker
 
-- **Main Game Loop** (`main.py`)
+- **Skills System** (`src/skillsys.py`)
+  - Skill database with different categories
+  - Level-based skill unlocking
+  - Skill types (physical, magical)
+
+- **Main Game Loop** (`src/main.py`)
   - Integrated combat encounters
   - Random enemy encounters based on map position
   - Turn-based gameplay
@@ -63,12 +73,29 @@ A text-based RPG game built in Python with character progression, combat system,
 ### File Structure
 ```
 RPG/
-├── main.py          # Main game loop and integration
-├── charactersys.py  # Character class and combat system
-├── enemys.py       # Enemy definitions
-├── map.py          # Map navigation system
-├── ROADMAP.MD      # This document
-└── TODO.md         # Development progress tracking
+├── src/                    # Source code directory
+│   ├── __init__.py        # Make src a package
+│   ├── charactersys.py    # Character system
+│   ├── combat.py          # Combat system
+│   ├── enemys.py          # Enemy definitions
+│   ├── map.py             # Map navigation
+│   ├── showstats.py       # Stats display
+│   ├── skillsys.py        # Skills system
+│   └── main.py            # Main game loop
+├── data/                  # Data files directory
+│   └── skills.json        # Skills data
+├── docs/                  # Documentation directory
+│   ├── ROADMAP.MD         # Project roadmap
+│   └── TODO.MD            # Development tasks
+├── tests/                 # Test directory
+│   ├── conftest.py
+│   ├── test_charactersys.py
+│   ├── test_combat.py
+│   ├── test_enemys.py
+│   └── test_skillsys.py
+├── .gitignore             # Git ignore file
+├── requirements.txt       # Python dependencies
+└── README.MD             # Main project documentation
 ```
 
 ### Dependencies
@@ -76,7 +103,7 @@ RPG/
 - Standard library only (no external dependencies)
 
 ## 🎮 How to Play
-1. Run `python main.py` to start the game
+1. Run `python src/main.py` to start the game
 2. Use WASD keys to move around the map
 3. Encounter enemies randomly based on your position
 4. Choose to attack or flee during combat

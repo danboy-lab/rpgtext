@@ -1,6 +1,6 @@
-from charactersys import *
-from enemys import Goblin
-from skillsys import data
+from src.charactersys import *
+from src.enemys import Goblin
+from src.skillsys import data
 
 namesskillsdisponiveis = []
 escaped = False  # Initialize escaped to False

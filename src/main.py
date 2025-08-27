@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from charactersys import Player  # Import the Player instance from charactersys
+from src.charactersys import Player  # Import the Player instance from charactersys
 
 print(Player)
 

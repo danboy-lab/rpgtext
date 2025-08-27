@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Dict
-from skillsys import data
+from src.skillsys import data
 
 skills_disponiveis = []
 
