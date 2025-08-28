@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict
 from skillsys import data
 
+
 skills_disponiveis = []
 
 @dataclass
@@ -59,7 +60,7 @@ Player = Character(
     dex=3,
     luck=2,
     skills=["Slash"],  # Only skills available at level 1
-    inventory=["Potion", "Sword"],
+    inventory=["Crimson Vitality Potion", "Dagger"],
     gold=10,
     status_effects=[]  
 )
@@ -68,3 +69,4 @@ for category in data["skills"]:
     for skill in data["skills"][category]:
         if skill["level_required"] <= Player.lvl:
             skills_disponiveis.append(skill)
+
