@@ -1,6 +1,6 @@
-from src.charactersys import *
-from src.enemys import Goblin
-from src.skillsys import data
+from charactersys import *
+from enemys import Goblin
+from skillsys import data
 
 namesskillsdisponiveis = []
 escaped = False  # Initialize escaped to False
@@ -35,15 +35,15 @@ def player_attack():
     print("Você tem a iniciativa!")
     getnamesskillsdisponiveis()
     print(f"Habilidades disponíveis: {', '.join(namesskillsdisponiveis)}")
-    action = input("Qual ataque deseja usar? ")
+    action = input("Qual ataque deseja usar? ").strip().lower()
     
-    skill = find_skill_by_name(action)
+    skill = find_skill_by_name(action.capitalize())
     if skill and action.capitalize() in namesskillsdisponiveis:
         if Player.mana >= skill["mana_cost"]:
             Player.mana -= skill["mana_cost"]
             damage = calculate_damage(Player, Goblin, skill)
             Goblin.life -= damage
-            print(f"Você usou {action} e causou {damage} de dano!")
+            print(f"Você usou {action.capitalize()} e causou {damage} de dano!")
             print(f"Vida do Goblin: {Goblin.life}")
         else:
             print("Mana insuficiente!")
@@ -93,7 +93,7 @@ def ui():
 
 def combat_loop():
     print("Você entrou em combate com um Goblin!")
-    
+    Goblin.life = 20
     while Player.life > 0 and Goblin.life > 0 and not escaped:
         ui()
         
@@ -108,4 +108,4 @@ def combat_loop():
 
 # Start combat only when run directly
 if __name__ == "__main__":
-    #combat_loop()
+    pass

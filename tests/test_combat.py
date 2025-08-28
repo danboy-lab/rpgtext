@@ -1,7 +1,33 @@
 import pytest
-from combat import calculate_damage, find_skill_by_name
-from charactersys import Character
-from enemys import Goblin
+from src.combat import calculate_damage, find_skill_by_name
+from src.charactersys import Character
+from src.enemys import Goblin
+
+def test_unlock_skills_on_level_up():
+    # Import the necessary functions and variables
+    from src.main import lvlsystem
+    from src.charactersys import Player, skills_disponiveis
+    
+    # Reset player skills for testing
+    Player.skills = []
+    
+    # Set XP to level up
+    Player.xp = 10
+    
+    # Store original level for comparison
+    original_level = Player.lvl
+    
+    # Call the leveling system
+    lvlsystem()
+    
+    # Check if level increased
+    assert Player.lvl > original_level
+    
+    # Check if new skills are unlocked (at least one should be)
+    assert len(Player.skills) > 0
+    
+    # Check if skills_disponiveis is updated
+    assert len(skills_disponiveis) > 0
 
 def test_calculate_damage():
     attacker = Character(name="Attacker", life=20, mana=10, xp=0, lvl=1, atk=10, defense=2, agi=3, int_=4, str_=5, dex=3, luck=2)

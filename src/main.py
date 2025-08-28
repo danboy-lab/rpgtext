@@ -1,14 +1,18 @@
 from dataclasses import dataclass
-from src.charactersys import Player  # Import the Player instance from charactersys
+from charactersys import Player  # Import the Player instance from charactersys
+from map import *
+from combat import *
+from lvlsys import lvlsystem
+from random import randint
 
-print(Player)
-
-
-def lvlsystem():
-    xptonextlvl = Player.lvl ** 2
-    if Player.xp >= xptonextlvl:
-        Player.lvl += 1
-        Player.xp = 0
-        print(f"Você passou de nivel! agora você é lvl {Player.lvl} parabéns!")
+while True:
+    r = random.randint(1, 10)
+    display_map()
+    move()
+    if r > 5:
+        # print(r) DEBUG PORPUSES
+        combat_loop()
+        lvlsystem()
     else:
-        print(f"Você tem {Player.xp} de xp! Precisa de {xptonextlvl} para o próximo nível.")
+        # print(r) # DEBUG PORPUSES
+        None

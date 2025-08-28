@@ -110,6 +110,7 @@ def remove_inventory_item(item_id: str):
     """
     if item_id in Player.inventory:
         Player.inventory.remove(item_id)
+        print(f"{ITEMS[item_id].name} removed from inventory.")
     else:
         print("Item not found in inventory")
 
@@ -129,3 +130,54 @@ def consume(item_id: str):
             print("Item cannot be consumed.")
     else:
         print("Item not in inventory.")
+
+def show_inventory():
+    """
+    Show the Player's inventory and allow actions (consume/remove).
+    """
+    if not Player.inventory:
+        print("Inventory is empty.")
+        return
+    
+    print("\n========== INVENTORY ==========")
+    for i, item_id in enumerate(Player.inventory, 1):
+        item = ITEMS.get(item_id)
+        if item:
+            stats = []
+            if item.damage > 0:
+                stats.append(f"DMG: {item.damage}")
+            if item.defense > 0:
+                stats.append(f"DEF: {item.defense}")
+            if item.effect_value > 0:
+                stats.append(f"Effect: {item.extra} ({item.effect_value})")
+            
+            stats_str = " | ".join(stats) if stats else "No extra stats"
+            print(f"{i}. {item.name} [{item.type}, {item.rarity}] - {stats_str}")
+    print("================================")
+    
+    # Escolher item
+    choice = input("Select an item by number (or press Enter to exit): ")
+    if not choice.strip():
+        return
+    
+    try:
+        choice = int(choice) - 1
+        if choice < 0 or choice >= len(Player.inventory):
+            print("Invalid choice.")
+            return
+    except ValueError:
+        print("Invalid input.")
+        return
+    
+    item_id = Player.inventory[choice]
+    item = ITEMS.get(item_id)
+    
+    # Perguntar ação
+    if item.type == "Consumable":
+        action = input(f"Do you want to consume {item.name}? (y/n): ")
+        if action.lower() == "y":
+            consume(item_id)
+    else:
+        action = input(f"Do you want to remove {item.name}? (y/n): ")
+        if action.lower() == "y":
+            remove_inventory_item(item_id)

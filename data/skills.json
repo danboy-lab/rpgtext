@@ -33,6 +33,17 @@
         "level_required": 5,
         "target": "enemy",
         "cooldown": 1
+      },
+      {
+        "id": "whirlwind",
+        "name": "Whirlwind",
+        "description": "A spinning attack that hits all enemies",
+        "damage": 10,
+        "mana_cost": 4,
+        "type": "physical",
+        "level_required": 4,
+        "target": "all",
+        "cooldown": 3
       }
     ],
     "magical": [
