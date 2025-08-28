@@ -107,12 +107,12 @@ FrostSoulRing = InventoryItem(
 )
 
 def add_inventory_item(item):
-    Player.inventory = [item]
+    Player.inventory.append([item])
     print(f"{item[1]} Added")
 
 def remove_inventory_item(item):
     Player.inventory.remove(item)
-    
+
 def consume(item):
     if item in Player.inventory and item.type == "Consumable":
         print(f"Consuming {item.name}...")
