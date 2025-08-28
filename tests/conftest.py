@@ -1,6 +1,6 @@
 import pytest
-from charactersys import Character
-from enemys import Goblin
+from src.charactersys import Character
+from src.enemys import Goblin
 
 @pytest.fixture
 def test_player():

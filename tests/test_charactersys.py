@@ -1,5 +1,5 @@
 import pytest
-from charactersys import Character
+from src.charactersys import Character
 
 def test_character_initialization():
     player = Character(
