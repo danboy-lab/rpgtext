@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Dict
-from src.skillsys import data
+from skillsys import data
 
 skills_disponiveis = []
 
@@ -61,7 +61,7 @@ Player = Character(
     skills=["Slash"],  # Only skills available at level 1
     inventory=["Potion", "Sword"],
     gold=10,
-    status_effects=[]
+    status_effects=[]  
 )
 
 for category in data["skills"]:
