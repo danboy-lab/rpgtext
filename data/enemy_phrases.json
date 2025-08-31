@@ -1,0 +1,23 @@
+{
+  "taunt": [
+    "You will regret this!",
+    "Die, intruder!",
+    "Prepare to meet your doom!",
+    "This is my territory!",
+    "You dare challenge me?"
+  ],
+  "attack_reaction": [
+    "Aaaah!",
+    "Ouch!",
+    "That hurts!",
+    "Argh!",
+    "Grrr!"
+  ],
+  "defeat": [
+    "No... this can't be...",
+    "You... win...",
+    "I... underestimated you...",
+    "Curse you!",
+    "My revenge... will come..."
+  ]
+}

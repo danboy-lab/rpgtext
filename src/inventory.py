@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from charactersys import Player
+import charactersys
 
 @dataclass
 class InventoryItem:
@@ -15,16 +15,36 @@ class InventoryItem:
     rarity: str = "Common"
     effect_value: int = 0   # only used for Consumables
     extra: str = ""
+    slot: str = ""  # Equipment slot: weapon, armor, helmet, accessory
 
 # Define all items in a dictionary for easy lookup by id
 ITEMS = {
+    "tooth": InventoryItem(
+        id="tooth",
+        name="Goblin Tooth",
+        type="Accessory",
+        value=5,
+        rarity="Common",
+        extra="Can be sold or used in crafting",
+        slot="accessory"
+    ),
+    "club": InventoryItem(
+        id="club",
+        name="Orc Club",
+        type="Weapon",
+        damage=8,
+        value=15,
+        rarity="Common",
+        slot="weapon"
+    ),
     "dagger": InventoryItem(
         id="dagger",
         name="Dagger",
         type="Weapon",
         damage=10,
         value=20,
-        rarity="Common"
+        rarity="Common",
+        slot="weapon"
     ),
     "ash_blade": InventoryItem(
         id="ash_blade",
@@ -32,7 +52,8 @@ ITEMS = {
         type="Weapon",
         damage=25,
         value=120,
-        rarity="Epic"
+        rarity="Epic",
+        slot="weapon"
     ),
     "moon_bow": InventoryItem(
         id="moon_bow",
@@ -40,7 +61,8 @@ ITEMS = {
         type="Weapon",
         damage=18,
         value=90,
-        rarity="Rare"
+        rarity="Rare",
+        slot="weapon"
     ),
     "guardian_armor": InventoryItem(
         id="guardian_armor",
@@ -48,7 +70,8 @@ ITEMS = {
         type="Armor",
         defense=30,
         value=200,
-        rarity="Legendary"
+        rarity="Legendary",
+        slot="armor"
     ),
     "shadow_cloak": InventoryItem(
         id="shadow_cloak",
@@ -56,7 +79,17 @@ ITEMS = {
         type="Armor",
         defense=10,
         value=150,
-        rarity="Rare"
+        rarity="Rare",
+        slot="armor"
+    ),
+    "leather_helmet": InventoryItem(
+        id="leather_helmet",
+        name="Leather Helmet",
+        type="Armor",
+        defense=5,
+        value=25,
+        rarity="Common",
+        slot="helmet"
     ),
     "red_potion": InventoryItem(
         id="red_potion",
@@ -81,7 +114,8 @@ ITEMS = {
         name="Amulet of Arcane Echo",
         type="Accessory",
         value=250,
-        rarity="Epic"
+        rarity="Epic",
+        slot="accessory"
     ),
     "frost_ring": InventoryItem(
         id="frost_ring",
@@ -90,7 +124,8 @@ ITEMS = {
         damage=5,
         value=180,
         rarity="Rare",
-        extra="+40% Ice Resistance, +5 Ice Damage"
+        extra="+40% Ice Resistance, +5 Ice Damage",
+        slot="accessory"
     ),
 }
 
@@ -99,7 +134,7 @@ def add_inventory_item(item_id: str):
     Add an item to the Player's inventory by item id.
     """
     if item_id in ITEMS:
-        Player.inventory.append(item_id)
+        charactersys.Player.inventory.append(item_id)
         print(f"{ITEMS[item_id].name} Added")
     else:
         print("This item does not exist")
@@ -108,8 +143,8 @@ def remove_inventory_item(item_id: str):
     """
     Remove an item from the Player's inventory by item id.
     """
-    if item_id in Player.inventory:
-        Player.inventory.remove(item_id)
+    if item_id in charactersys.Player.inventory:
+        charactersys.Player.inventory.remove(item_id)
         print(f"{ITEMS[item_id].name} removed from inventory.")
     else:
         print("Item not found in inventory")
@@ -119,28 +154,49 @@ def consume(item_id: str):
     Consume a consumable item from the Player's inventory by item id.
     Applies the effect and removes the item.
     """
-    if item_id in Player.inventory:
+    if item_id in charactersys.Player.inventory:
         item = ITEMS.get(item_id)
         if item and item.type == "Consumable":
             print(f"Consuming {item.name}...")
-            Player.life += item.effect_value
-            Player.inventory.remove(item_id)
-            print(f"{item.name} consumed. Life increased by {item.effect_value}. Current life: {Player.life}")
+            charactersys.Player.life += item.effect_value
+            charactersys.Player.inventory.remove(item_id)
+            print(f"{item.name} consumed. Life increased by {item.effect_value}. Current life: {charactersys.Player.life}")
         else:
             print("Item cannot be consumed.")
     else:
         print("Item not in inventory.")
 
+def update_equipment_stats():
+    """
+    Update Player's stats based on equipped items.
+    """
+    # Reset to base stats
+    charactersys.Player.atk = charactersys.Player.base_atk
+    charactersys.Player.defense = charactersys.Player.base_defense
+    charactersys.Player.agi = charactersys.Player.base_agi
+    charactersys.Player.int_ = charactersys.Player.base_int_
+    charactersys.Player.str_ = charactersys.Player.base_str_
+    charactersys.Player.dex = charactersys.Player.base_dex
+    charactersys.Player.luck = charactersys.Player.base_luck
+
+    # Apply equipment bonuses
+    for slot, item_id in charactersys.Player.equipment.items():
+        item = ITEMS.get(item_id)
+        if item:
+            charactersys.Player.atk += item.damage
+            charactersys.Player.defense += item.defense
+            # Add other bonuses if needed
+
 def show_inventory():
     """
-    Show the Player's inventory and allow actions (consume/remove).
+    Show the Player's inventory and allow actions (consume/remove/equip).
     """
-    if not Player.inventory:
+    if not charactersys.Player.inventory:
         print("Inventory is empty.")
         return
     
     print("\n========== INVENTORY ==========")
-    for i, item_id in enumerate(Player.inventory, 1):
+    for i, item_id in enumerate(charactersys.Player.inventory, 1):
         item = ITEMS.get(item_id)
         if item:
             stats = []
@@ -152,7 +208,13 @@ def show_inventory():
                 stats.append(f"Effect: {item.extra} ({item.effect_value})")
             
             stats_str = " | ".join(stats) if stats else "No extra stats"
-            print(f"{i}. {item.name} [{item.type}, {item.rarity}] - {stats_str}")
+            equipped = ""
+            # Check if item is equipped
+            for slot, equipped_item in charactersys.Player.equipment.items():
+                if equipped_item == item_id:
+                    equipped = f" (Equipped in {slot})"
+                    break
+            print(f"{i}. {item.name} [{item.type}, {item.rarity}]{equipped} - {stats_str}")
     print("================================")
     
     # Escolher item
@@ -162,14 +224,14 @@ def show_inventory():
     
     try:
         choice = int(choice) - 1
-        if choice < 0 or choice >= len(Player.inventory):
+        if choice < 0 or choice >= len(charactersys.Player.inventory):
             print("Invalid choice.")
             return
     except ValueError:
         print("Invalid input.")
         return
     
-    item_id = Player.inventory[choice]
+    item_id = charactersys.Player.inventory[choice]
     item = ITEMS.get(item_id)
     
     # Perguntar ação
@@ -178,6 +240,34 @@ def show_inventory():
         if action.lower() == "y":
             consume(item_id)
     else:
-        action = input(f"Do you want to remove {item.name}? (y/n): ")
-        if action.lower() == "y":
-            remove_inventory_item(item_id)
+        # Check if equipped
+        is_equipped = any(item_id == equipped_item for equipped_item in charactersys.Player.equipment.values())
+        if is_equipped:
+            action = input(f"{item.name} is equipped. Do you want to unequip or remove? (unequip/remove/cancel): ").lower()
+            if action == "unequip":
+                # Find slot and unequip
+                for slot, equipped_item in charactersys.Player.equipment.items():
+                    if equipped_item == item_id:
+                        del charactersys.Player.equipment[slot]
+                        print(f"Unequipped {item.name} from {slot}.")
+                        update_equipment_stats()
+                        break
+            elif action == "remove":
+                remove_inventory_item(item_id)
+        else:
+            action = input(f"Do you want to equip or remove {item.name}? (equip/remove/cancel): ").lower()
+            if action == "equip":
+                # Equip item in its slot
+                slot = item.slot
+                if slot:
+                    # Unequip current item in slot if any
+                    if slot in charactersys.Player.equipment:
+                        unequipped_item = charactersys.Player.equipment[slot]
+                        print(f"Unequipped {ITEMS[unequipped_item].name} from {slot}.")
+                    charactersys.Player.equipment[slot] = item_id
+                    print(f"Equipped {item.name} in {slot}.")
+                    update_equipment_stats()
+                else:
+                    print("This item cannot be equipped.")
+            elif action == "remove":
+                remove_inventory_item(item_id)

@@ -16,17 +16,40 @@ map_data = generate_map(ROWS, COLS)
 player_pos = [random.randint(0, ROWS - 1), random.randint(0, COLS - 1)]
 
 def display_map():
+    tile_symbols = {
+        0: " ",  # empty space
+        1: "#",  # wall or tree
+        2: "T",  # tree
+        3: "~",  # water
+        4: ".",  # grass
+        5: "^",  # mountain
+    }
     print("\n=== RPG MAP ===")
     for r, row in enumerate(map_data):
         for c, tile in enumerate(row):
-            print(f"[P]" if [r, c] == player_pos else f" {tile} ", end=" ")
+            if [r, c] == player_pos:
+                print("[P]", end=" ")
+            else:
+                symbol = tile_symbols.get(tile, "?")
+                print(f" {symbol} ", end=" ")
         print()
 
 def move():
     """Move o player com base na tecla w/a/s/d"""
-    d = input("Move (w/a/s/d, q para sair): ").strip().lower()
+    d = input("Move (w/a/s/d, i para inventário, sv para salvar, l para carregar, q para sair): ").strip().lower()
     if d == 'q':
         return False
+    elif d == 'sv':
+        from save_load import save_game
+        save_game()
+        return True
+    elif d == 'l':
+        from save_load import load_game
+        load_game()
+        return True
+    elif d == 'i':
+        show_inventory()
+        return True
 
     r, c = player_pos
     if d == 'w' and r > 0:
@@ -37,8 +60,6 @@ def move():
         player_pos[1] -= 1
     elif d == 'd' and c < len(map_data[0]) - 1:
         player_pos[1] += 1
-    elif d == 'i':
-        show_inventory()
     else:
         print("Movimento inválido.")
         return True  # continua o loop mesmo com tecla inválida
