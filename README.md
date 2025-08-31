@@ -1,94 +1,147 @@
-# RPG Game
+# 🌟 RPG Text Adventure
 
-A text-based RPG game built in Python with character progression, combat system, and map exploration.
+A comprehensive text-based RPG game built in Python featuring character progression, dynamic combat, map exploration, and a beautiful menu-driven interface.
 
 ## 🎯 Features
 
 ### Core Systems
 - **Character System** (`src/charactersys.py`)
-  - Character class with stats (life, mana, xp, atk, DEF, lvl)
-  - Leveling system with XP requirements
-  - Combat mechanics with damage calculation
-  - Player instance with balanced starting stats
+  - Character class with comprehensive stats (life, mana, xp, atk, defense, lvl, agi, int, str, dex, luck)
+  - Three distinct character classes: Fighter, Mage, and Rogue
+  - Leveling system with XP requirements and stat progression
+  - Combat mechanics with damage calculation and status effects
+
+- **Menu System** (`src/menu.py`)
+  - Beautiful ASCII art main menu with emoji decorations
+  - New Game setup with class selection
+  - Load Game functionality with save file detection
+  - About section with game information and controls
+  - GitHub repository integration
 
 - **Enemy System** (`src/enemys.py`)
-  - Goblin enemy with predefined stats
-  - Easy to extend with more enemy types
+  - Multiple enemy types: Goblin, Orc, Skeleton, Slime, Bandit, Dark Mage, Ogre, Dragon Whelp
+  - Dynamic enemy selection based on player level
+  - Enemy phrases and loot drops
 
 - **Combat System** (`src/combat.py`)
-  - Turn-based combat with attack/defense mechanics
-  - Skill-based combat system
-  - XP gain from defeating enemies
+  - Turn-based combat with initiative system
+  - Skill-based combat with multiple attack options
+  - XP gain and loot from defeating enemies
+  - Flee mechanics and item usage
 
 - **Map System** (`src/map.py`)
-  - 5x5 grid map with different terrain values
-  - Player position tracking
-  - Movement system (WASD controls)
+  - Procedurally generated map with varied terrain
+  - Player position tracking and movement
+  - WASD movement controls with collision detection
   - Visual map display with player marker
 
 - **Skills System** (`src/skillsys.py`)
-  - Skill database with different categories
-  - Level-based skill unlocking
-  - Skill types (physical, magical)
+  - Comprehensive skill database with multiple categories
+  - Level-based skill unlocking system
+  - Physical and magical skill types
+
+- **Save/Load System** (`src/save_load.py`)
+  - JSON-based save file system
+  - Complete game state preservation
+  - Automatic save file detection
 
 ### Game Mechanics
-- Turn-based combat with attack/defense mechanics
-- XP gain from defeating enemies
-- Level progression with automatic stat increases
-- Random encounter system
-- Map exploration with terrain-based encounter rates
+- Turn-based combat with strategic depth
+- XP gain and leveling with stat improvements
+- Random encounter system based on terrain
+- Inventory management system
+- Save/load functionality
+- Multiple character classes with unique abilities
+- Dynamic enemy scaling based on player level
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.6+
-- No external dependencies required
+- Python 3.6 or higher
+- No external dependencies required (uses only Python standard library)
 
 ### Installation
-1. Clone or download the project
-2. Navigate to the project directory
+1. Clone the repository:
+```bash
+git clone https://github.com/danboy-lab/rpgtext.git
+cd rpgtext
+```
+
+2. (Optional) Create a virtual environment:
+```bash
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+```
 
 ### Running the Game
 ```bash
-python -m src.main
+python src/main.py
 ```
 
 ## 🎮 How to Play
 
-1. Run `python src/main.py` to start the game
-2. Use WASD keys to move around the map
-3. Encounter enemies randomly based on your position
-4. Choose to attack or flee during combat
-5. Gain XP and level up your character
-6. Survive as many turns as possible!
+### Game Controls
+- **W/A/S/D** - Move around the map
+- **I** - Open inventory
+- **SV** - Save game
+- **L** - Load game
+- **Q** - Quit game
+
+### Gameplay Flow
+1. **Start**: Run `python src/main.py` to launch the game
+2. **Menu**: Choose from New Game, Load Game, About, or GitHub
+3. **Class Selection**: Pick Fighter, Mage, or Rogue for different playstyles
+4. **Exploration**: Use WASD to move around the procedurally generated map
+5. **Combat**: Random encounters trigger turn-based battles
+6. **Progression**: Defeat enemies to gain XP and level up
+7. **Survival**: Try to survive as many turns as possible!
+
+### Character Classes
+- **🏆 Fighter**: High strength and defense, balanced combat
+- **🔮 Mage**: Powerful magic attacks, high intelligence
+- **🗡️ Rogue**: High agility and dexterity, stealth-focused
 
 ## 📁 Project Structure
 
 ```
-RPG/
-├── src/                    # Source code directory
-│   ├── __init__.py        # Make src a package
-│   ├── charactersys.py    # Character system
-│   ├── combat.py          # Combat system
-│   ├── enemys.py          # Enemy definitions
-│   ├── map.py             # Map navigation
-│   ├── showstats.py       # Stats display
-│   ├── skillsys.py        # Skills system
-│   └── main.py            # Main game loop
-├── data/                  # Data files directory
-│   └── skills.json        # Skills data
-├── docs/                  # Documentation directory
-│   ├── ROADMAP.MD         # Project roadmap
-│   └── TODO.MD            # Development tasks
-├── tests/                 # Test directory
-│   ├── conftest.py
-│   ├── test_charactersys.py
-│   ├── test_combat.py
-│   ├── test_enemys.py
-│   └── test_skillsys.py
-├── .gitignore             # Git ignore file
-├── requirements.txt       # Python dependencies
-└── README.MD             # This file
+rpg-text-adventure/
+├── src/                          # Source code directory
+│   ├── __init__.py              # Package initialization
+│   ├── main.py                  # Main entry point & game loop
+│   ├── menu.py                  # Menu system & UI
+│   ├── charactersys.py          # Character classes & stats
+│   ├── combat.py                # Combat mechanics
+│   ├── enemys.py                # Enemy definitions
+│   ├── map.py                   # Map generation & navigation
+│   ├── skillsys.py              # Skills & abilities system
+│   ├── save_load.py             # Save/load functionality
+│   ├── inventory.py             # Inventory management
+│   ├── lvlsys.py                # Leveling system
+│   ├── generate_player.py       # Character generation
+│   ├── apis.py                  # External API integrations
+│   └── showstats.py             # Statistics display
+├── data/                        # Game data files
+│   ├── skills.json              # Skills database
+│   └── enemy_phrases.json       # Enemy dialogue
+├── tests/                       # Test suite
+│   ├── __init__.py
+│   ├── conftest.py              # Test configuration
+│   ├── test_charactersys.py     # Character system tests
+│   ├── test_combat.py           # Combat system tests
+│   ├── test_enemys.py           # Enemy system tests
+│   ├── test_save_load.py        # Save/load tests
+│   ├── test_lvlsys.py           # Leveling system tests
+│   └── test_*.py                # Other test files
+├── docs/                        # Documentation
+│   ├── ROADMAP.md               # Development roadmap
+│   └── TODO.md                  # Task tracking
+├── .gitignore                   # Git ignore rules
+├── requirements.txt             # Python dependencies
+├── savegame.json                # Auto-generated save file
+└── README.md                    # This file
 ```
 
 ## 🛠 Development
@@ -112,11 +165,43 @@ python -m pytest tests/
 
 ## 🤝 Contributing
 
-1. Fork the project
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
+We welcome contributions from the community! Whether you're fixing bugs, adding features, improving documentation, or helping with testing, your help is appreciated.
+
+### How to Contribute
+
+1. Fork the repository on GitHub:  
+   https://github.com/danboy-lab/rpgtext
+
+2. Clone your fork locally:  
+```bash
+git clone https://github.com/danboy-lab/rpgtext.git
+cd rpgtext
+```
+
+3. Create a new branch for your feature or bugfix:  
+```bash
+git checkout -b feature/your-feature-name
+# or for bug fixes:
+git checkout -b fix/issue-description
+```
+
+4. Make your changes and commit them with clear messages.
+
+5. Push your branch to your fork:  
+```bash
+git push origin feature/your-feature-name
+```
+
+6. Open a pull request on the original repository.
+
+### Guidelines
+
+- Follow PEP 8 style guidelines.
+- Write clear, concise commit messages.
+- Add tests for new features or bug fixes.
+- Update documentation as needed.
+
+Thank you for helping improve RPG Text Adventure! 🎮
 
 ## 📝 License
 
