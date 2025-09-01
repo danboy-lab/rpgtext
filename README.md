@@ -169,6 +169,8 @@ We welcome contributions from the community! Whether you're fixing bugs, adding 
 
 ### How to Contribute
 
+0. Planned tasks are listed in `docs/TODO.md`, but don’t hesitate to explore and add your own ideas or improvements!
+
 1. Fork the repository on GitHub:  
    https://github.com/danboy-lab/rpgtext
 
