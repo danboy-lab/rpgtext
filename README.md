@@ -1,6 +1,12 @@
-# 🌟 RPG Text Adventure
+<p align="center">
+  <h1 align="center"> Text based RPG</h1>
+  <p>Built in Python with character progression, turn-based combat, map exploration, NPC interactions, and a menu-driven interface.</p>
+  <p>
+    <strong>Technologies Used:</strong><br>
+    🐍 Python 3.6+ &nbsp;&nbsp;|&nbsp;&nbsp; 📄 JSON &nbsp;&nbsp;|&nbsp;&nbsp; ⚙️ Standard Library
+  </p>
+</p>
 
-A comprehensive text-based RPG game built in Python featuring character progression, dynamic combat, map exploration, and a beautiful menu-driven interface.
 
 ## 🎯 Features
 
