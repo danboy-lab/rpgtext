@@ -30,6 +30,9 @@ if __name__ == "__main__":
         print("Use W/A/S/D to move, I for inventory, SV to save, L to load, Q to quit")
 
         while True:
+            if charactersys.Player.life <= 0:
+                print(" YOU DIED "*200)
+                display_main_menu()
             r = random.randint(1, 10)
             display_map()
             move()
@@ -37,6 +40,6 @@ if __name__ == "__main__":
                 combat_loop()
                 lvlsystem()
             else:
-                print(f"📜 Você encontrou uma inscrição antiga: {get_random_event_fact()}")
+                print("...")
     else:
         print("Game not started. Exiting...")

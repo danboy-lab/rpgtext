@@ -1,5 +1,5 @@
 import charactersys
-from enemys import Goblin, Orc
+from enemys import *
 import random
 from skillsys import data
 from apis import get_random_enemy_name, get_enemy_taunt, get_attack_reaction, get_defeat_phrase
@@ -9,7 +9,7 @@ namesskillsdisponiveis = []
 escaped = False  # Initialize escaped to False
 
 # List of available enemies
-enemies = [Goblin, Orc]
+enemies = [Goblin, Orc,Skeleton,Slime]
 
 def select_random_enemy():
     """Select a random enemy based on player level"""

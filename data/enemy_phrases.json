@@ -4,20 +4,50 @@
     "Die, intruder!",
     "Prepare to meet your doom!",
     "This is my territory!",
-    "You dare challenge me?"
+    "You dare challenge me?",
+    "Your journey ends here!",
+    "I’ll crush you like an insect!",
+    "You look weak… easy prey!",
+    "Hah! Is that all you’ve got?",
+    "I was hoping for a real challenge!",
+    "Step forward and face your death!",
+    "You should have stayed home!",
+    "Foolish hero, you cannot win!",
+    "You walk into your own grave!",
+    "Your fear is delicious!"
   ],
   "attack_reaction": [
     "Aaaah!",
     "Ouch!",
     "That hurts!",
     "Argh!",
-    "Grrr!"
+    "Grrr!",
+    "You’ll pay for that!",
+    "Not bad…",
+    "Tch… lucky strike!",
+    "You dare wound me?!",
+    "Hrrgh!",
+    "I won’t forget this!",
+    "You… will suffer!",
+    "That… was nothing!",
+    "You’ll regret that move!",
+    "You won’t get another hit in!"
   ],
   "defeat": [
     "No... this can't be...",
     "You... win...",
     "I... underestimated you...",
     "Curse you!",
-    "My revenge... will come..."
+    "My revenge... will come...",
+    "How… could this be…?",
+    "I was… so close…",
+    "Impossible…!",
+    "I won’t… forgive this…",
+    "Even in defeat… I’ll haunt you…",
+    "You may have won… but not for long…",
+    "This… isn’t over…",
+    "Mark my words…",
+    "I will… return… stronger…",
+    "Enjoy your victory… while it lasts…"
   ]
 }

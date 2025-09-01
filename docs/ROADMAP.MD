@@ -38,28 +38,53 @@ A text-based RPG game built in Python with character progression, combat system,
   - Turn-based gameplay
   - Player stat management
 
+- **Inventory System** (`src/inventory.py`)
+  - Item management with weapons, armor, consumables, and accessories
+  - Equipment system with stat bonuses
+  - Item consumption and removal
+  - Rarity system (Common, Uncommon, Rare, Epic, Legendary)
+
+- **Save/Load System** (`src/save_load.py`)
+  - JSON-based game state persistence
+  - Complete player data and map position saving
+  - Load game functionality with error handling
+
+- **Menu System** (`src/menu.py`)
+  - Main menu with new game, load game, about, and GitHub options
+  - Character class selection (Fighter, Mage, Rogue)
+  - Custom player name input
+
+- **Player Generation** (`src/generate_player.py`)
+  - Class-based character creation with unique starting stats
+  - Starting inventory and skills per class
+  - Balanced progression for different playstyles
+
 ### Game Mechanics
 - Turn-based combat with attack/defense mechanics
 - XP gain from defeating enemies
 - Level progression with automatic stat increases
 - Random encounter system
 - Map exploration with terrain-based encounter rates
+- Inventory management and equipment
+- Game state persistence
+- Multiple character classes with unique abilities
 
 ## 🚧 Planned Features
 
 ### Short Term (Phase 2)
-- [ ] Inventory system with items and equipment
 - [ ] Multiple enemy types (Orcs, Dragons, etc.)
 - [ ] Quest system with objectives
-- [ ] Save/Load game functionality
 - [ ] Shop system for buying/selling items
+- [ ] NPC system with basic interactions
+- [ ] Language support with English/Portuguese options
+- [ ] Commands system with /help functionality
 
 ### Medium Term (Phase 3)
 - [ ] Magic system with spells and mana
 - [ ] Boss battles with special mechanics
 - [ ] Day/Night cycle affecting gameplay
 - [ ] Weather system impacting encounters
-- [ ] NPC interactions and dialogue system
+- [ ] Enhanced NPC interactions and dialogue system
 
 ### Long Term (Phase 4)
 - [ ] Multi-region map system
@@ -72,17 +97,28 @@ A text-based RPG game built in Python with character progression, combat system,
 
 ### File Structure
 ```
-RPG/
+rpgtext/
 ├── src/                    # Source code directory
 │   ├── __init__.py        # Make src a package
+│   ├── apis.py            # External API integrations
 │   ├── charactersys.py    # Character system
 │   ├── combat.py          # Combat system
 │   ├── enemys.py          # Enemy definitions
+│   ├── generate_maps.py   # Map generation utilities
+│   ├── generate_player.py # Player creation system
+│   ├── inventory.py       # Inventory management
+│   ├── lvlsys.py          # Leveling system
+│   ├── main.py            # Main game loop
 │   ├── map.py             # Map navigation
+│   ├── menu.py            # Menu system
+│   ├── npcs.py            # NPC system (planned)
+│   ├── save_load.py       # Save/Load functionality
 │   ├── showstats.py       # Stats display
-│   ├── skillsys.py        # Skills system
-│   └── main.py            # Main game loop
+│   └── skillsys.py        # Skills system
 ├── data/                  # Data files directory
+│   ├── enemy_phrases.json # Enemy dialogue data
+│   ├── locations.json     # Location data
+│   ├── maps.json          # Map data
 │   └── skills.json        # Skills data
 ├── docs/                  # Documentation directory
 │   ├── ROADMAP.MD         # Project roadmap
@@ -93,9 +129,10 @@ RPG/
 │   ├── test_combat.py
 │   ├── test_enemys.py
 │   └── test_skillsys.py
+├── savegame.json          # Save file (generated)
 ├── .gitignore             # Git ignore file
 ├── requirements.txt       # Python dependencies
-└── README.MD             # Main project documentation
+└── README.md             # Main project documentation
 ```
 
 ### Dependencies

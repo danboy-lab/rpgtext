@@ -1,3 +1,4 @@
+from showstats import *
 from inventory import *
 import random
 
@@ -36,9 +37,10 @@ def display_map():
 
 def move():
     """Move o player com base na tecla w/a/s/d"""
-    d = input("Move (w/a/s/d, i para inventário, sv para salvar, l para carregar, q para sair): ").strip().lower()
+    d = input("Move (w/a/s/d, i para inventário, sv para salvar, l para carregar, q para sair, o para abrir status): ").strip().lower()
     if d == 'q':
         return False
+    # May return to main menu in a further version
     elif d == 'sv':
         from save_load import save_game
         save_game()
@@ -50,6 +52,8 @@ def move():
     elif d == 'i':
         show_inventory()
         return True
+    elif d == 'o':
+        manage_status()
 
     r, c = player_pos
     if d == 'w' and r > 0:
@@ -60,6 +64,7 @@ def move():
         player_pos[1] -= 1
     elif d == 'd' and c < len(map_data[0]) - 1:
         player_pos[1] += 1
+
     else:
         print("Movimento inválido.")
         return True  # continua o loop mesmo com tecla inválida

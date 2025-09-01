@@ -1,4 +1,4 @@
-from charactersys import *
+import charactersys
 from enemys import *
 
 def manage_status():
@@ -42,7 +42,7 @@ def manage_status():
             continue
 
         if which == 1:
-            show_status(Player)
+            show_status(charactersys.Player)
         elif which == 2:
             # Se tiver vários inimigos, basta colocar em uma lista:
             enemies = [Goblin, Orc]

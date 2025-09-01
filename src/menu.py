@@ -59,15 +59,24 @@ def start_new_game():
         choice = input("Enter your choice (1-3): ").strip()
         if choice == "1":
             charactersys.Player = generate_player("fighter")
-            print(f"🏆 You are a {charactersys.Player.name}!")
+            name = input("Enter your character's name: ").strip()
+            if name:
+                charactersys.Player.name = name
+            print(f"🏆 You are {charactersys.Player.name} the Fighter!")
             break
         elif choice == "2":
             charactersys.Player = generate_player("mage")
-            print(f"🔮 You are a {charactersys.Player.name}!")
+            name = input("Enter your character's name: ").strip()
+            if name:
+                charactersys.Player.name = name
+            print(f"🔮 You are {charactersys.Player.name} the Mage!")
             break
         elif choice == "3":
             charactersys.Player = generate_player("rogue")
-            print(f"🗡️  You are a {charactersys.Player.name}!")
+            name = input("Enter your character's name: ").strip()
+            if name:
+                charactersys.Player.name = name
+            print(f"🗡️  You are {charactersys.Player.name} the Rogue!")
             break
         else:
             print("❌ Invalid choice. Please select 1-3.")
