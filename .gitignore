@@ -16,6 +16,8 @@ venv/
 *.swp
 *.swo
 
+
 # OS files
 .DS_Store
 Thumbs.db
+savegame.json

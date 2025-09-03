@@ -75,7 +75,14 @@ venv\Scripts\activate
 # On macOS/Linux:
 source venv/bin/activate
 ```
+3. Installing the requirements
 
+```bash
+pip -r requirements.txt
+
+``` 
+
+```
 ### Running the Game
 ```bash
 python src/main.py
@@ -208,6 +215,6 @@ Thank you for helping improve RPG Text Adventure! 🎮
 This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
-
+- Wish to make a cool isekai vibe in the future ;D
 - Inspired by classic text-based RPG games
 - Built with Python standard library

@@ -12,3 +12,15 @@ class Npc:
     hostility: bool = False       # Se pode atacar o jogador
     location: Optional[str] = None  # Local onde aparece (aldeia, floresta, etc.)
     does: Optional[str] = None    # O que costuma fazer (patrulhar, vender, rezar...)
+
+Dave_forest_seller = Npc(
+    name="Dave",
+    role="merchant",
+    description="Dave is a merchant who was born in a faraway village, now he spends his time seeking clients in the forest.",
+    phrases=["Hello stranger, would you like to buy, or sell?"],
+    quests=[],
+    hostility=False,
+    location="forest",
+    does=["sell", "talk", "buy"],
+    items=["potion", "herbs", "wood"]  # exemplo de inventário
+)

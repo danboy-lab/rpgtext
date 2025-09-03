@@ -1,61 +1,55 @@
-import charactersys
-from enemys import *
 import random
+from copy import deepcopy
+
+import charactersys
+from enemys import Goblin, Orc, Skeleton, Slime
 from skillsys import data
 from apis import get_random_enemy_name, get_enemy_taunt, get_attack_reaction, get_defeat_phrase
 from inventory import ITEMS, show_inventory
 
-namesskillsdisponiveis = []
-escaped = False  # Initialize escaped to False
-
 # List of available enemies
-enemies = [Goblin, Orc,Skeleton,Slime]
+ENEMIES = [Goblin, Orc, Skeleton, Slime]
+
 
 def select_random_enemy():
-    """Select a random enemy based on player level"""
+    """Select a random enemy based on player level, using weighted probability."""
     player_lvl = charactersys.Player.lvl
 
-    # Calculate weights based on level difference
     weights = []
-    for enemy in enemies:
+    for enemy in ENEMIES:
         level_diff = abs(player_lvl - enemy.lvl)
-        # Higher weight for enemies closer to player level
-        # Weight decreases significantly as level difference increases
         if level_diff == 0:
-            weight = 80  # Same level: very high chance
+            weight = 80
         elif level_diff == 1:
-            weight = 15  # One level difference: low chance
+            weight = 15
         else:
-            weight = 5   # Large difference: very low chance
+            weight = 5
         weights.append(weight)
 
-    # Select enemy based on weights
-    total_weight = sum(weights)
-    rand = random.uniform(0, total_weight)
-    cumulative = 0
-    for i, weight in enumerate(weights):
-        cumulative += weight
-        if rand <= cumulative:
-            return enemies[i]
+    return random.choices(ENEMIES, weights=weights, k=1)[0]
 
-    # Fallback
-    return enemies[0]
 
-def getnamesskillsdisponiveis():
-    namesskillsdisponiveis.clear()  # Clear the list to avoid duplicates
-    for category in data["skills"]:
-        for skill in data["skills"][category]:
-            if skill["level_required"] <= charactersys.Player.lvl:
-                namesskillsdisponiveis.append(skill["name"])
+def get_available_skill_names():
+    """Return a list of skills available to the player at their current level."""
+    return [
+        skill["name"]
+        for category in data["skills"].values()
+        for skill in category
+        if skill["level_required"] <= charactersys.Player.lvl
+    ]
+
 
 def find_skill_by_name(skill_name):
-    for category in data["skills"]:
-        for skill in data["skills"][category]:
-            if skill["name"] == skill_name:
+    """Find a skill by name."""
+    for category in data["skills"].values():
+        for skill in category:
+            if skill["name"].lower() == skill_name.lower():
                 return skill
     return None
 
+
 def calculate_damage(attacker, defender, skill):
+    """Calculate the damage based on the attack type."""
     base_damage = skill.get("damage", 0)
     if skill["type"] == "physical":
         damage = base_damage + attacker.atk - defender.defense
@@ -63,115 +57,123 @@ def calculate_damage(attacker, defender, skill):
         damage = base_damage + attacker.int_ - defender.defense
     else:
         damage = base_damage
-    
-    # Ensure minimum damage of 1
     return max(1, damage)
 
+
 def player_attack(current_enemy):
-    print("Você tem a iniciativa!")
-    getnamesskillsdisponiveis()
-    print(f"Habilidades disponíveis: {', '.join(namesskillsdisponiveis)}")
-    action = input("Qual ataque deseja usar? ").strip().lower()
-    
-    skill = find_skill_by_name(action.capitalize())
-    if skill and action.capitalize() in namesskillsdisponiveis:
-        if charactersys.Player.mana >= skill["mana_cost"]:
-            charactersys.Player.mana -= skill["mana_cost"]
-            damage = calculate_damage(charactersys.Player, current_enemy, skill)
-            current_enemy.life -= damage
-            print(f"Você usou {action.capitalize()} e causou {damage} de dano!")
-            print(f"Vida do {current_enemy.name}: {current_enemy.life}")
-        else:
-            print("Mana insuficiente!")
-    else:
-        print("Você não tem esse ataque!")
+    print("\nYou take the initiative!")
+    skills = get_available_skill_names()
+    print(f"Available skills: {', '.join(skills)}")
+
+    action = input("Which attack do you want to use? ").strip().capitalize()
+    skill = find_skill_by_name(action)
+
+    if not skill or action not in skills:
+        print("You don't have that skill!")
+        return
+
+    if charactersys.Player.mana < skill["mana_cost"]:
+        print("Not enough mana!")
+        return
+
+    charactersys.Player.mana -= skill["mana_cost"]
+    damage = calculate_damage(charactersys.Player, current_enemy, skill)
+    current_enemy.life -= damage
+
+    print(f"You used {action} and dealt {damage} damage!")
+    print(f"{current_enemy.name}'s HP: {current_enemy.life}")
+
 
 def enemy_attack(current_enemy):
-    print(f"\nTurno do {current_enemy.name}!")
-    # Simple enemy attack - just a basic attack
+    print(f"\n{current_enemy.name}'s turn!")
     damage = max(1, current_enemy.atk - charactersys.Player.defense)
     charactersys.Player.life -= damage
-    print(f"{current_enemy.name} atacou e causou {damage} de dano!")
-    print(f"Sua vida: {charactersys.Player.life}")
-    print(f"{current_enemy.name} diz: {get_attack_reaction()}")
+    print(f"{current_enemy.name} attacked and dealt {damage} damage!")
+    print(f"Your HP: {charactersys.Player.life}")
+    print(f"{current_enemy.name} says: {get_attack_reaction()}")
 
-def run(current_enemy):
+
+def attempt_escape(current_enemy):
+    """Attempt to escape from combat."""
     if charactersys.Player.agi > current_enemy.agi:
-        print("Você conseguiu fugir!")
-    elif charactersys.Player.agi < current_enemy.agi:
-        print("Você tentou fugir mas não conseguiu, então tomou um ataque!")
-        enemy_attack(current_enemy)
+        print("You successfully escaped!")
+        return True
+    print("You tried to escape but failed, and took a hit!")
+    enemy_attack(current_enemy)
+    return False
+
 
 def use_item():
     show_inventory()
 
-def ui(current_enemy):
-    print(f"\n=== COMBATE ===")
-    print(f"{charactersys.Player.name}: {charactersys.Player.life} HP | {current_enemy.name}: {current_enemy.life} HP")
-    print(f"O que você deseja fazer?: ")
-    
+
+def show_ui(current_enemy):
+    print("\n=== COMBAT ===")
+    print(f"{charactersys.Player.name}: {charactersys.Player.life} HP | "
+          f"{current_enemy.name}: {current_enemy.life} HP")
+
     try:
-        action = int(input("1: ATACAR 2: FUGIR 3: USAR ITEM: "))
+        action = int(input("1: ATTACK  2: RUN  3: USE ITEM\n> "))
+    except ValueError:
+        print("Please enter a valid number!")
+        return "invalid"
+
+    return action
+
+
+def combat_loop():
+    """Main combat loop."""
+    current_enemy = deepcopy(select_random_enemy())
+
+    # Save original type before renaming
+    enemy_type = current_enemy.name
+    current_enemy.name = get_random_enemy_name()
+    current_enemy.life = current_enemy.base_life
+
+    print(f"\nYou encountered {current_enemy.name} the {enemy_type}!")
+    print(f"{current_enemy.name} says: {get_enemy_taunt()}")
+
+    escaped = False
+
+    while charactersys.Player.life > 0 and current_enemy.life > 0 and not escaped:
+        action = show_ui(current_enemy)
+
         if action == 1:
             player_attack(current_enemy)
             if current_enemy.life > 0:
                 enemy_attack(current_enemy)
         elif action == 2:
-            run(current_enemy)
+            escaped = attempt_escape(current_enemy)
         elif action == 3:
             use_item()
-            enemy_attack(current_enemy)
+            if current_enemy.life > 0:
+                enemy_attack(current_enemy)
         else:
-            print("Opção inválida!")
             enemy_attack(current_enemy)
-    except ValueError:
-        print("Por favor, digite um número válido!")
-        enemy_attack(current_enemy)
 
-def combat_loop():
-    # Select random enemy based on player level
-    current_enemy = select_random_enemy()
-    
-    # Create a copy of the enemy to avoid modifying the original
-    from copy import deepcopy
-    current_enemy = deepcopy(current_enemy)
-    
-    # Salvar o tipo original antes de renomear
-    enemy_type = current_enemy.name  
-    
-    # Gerar nome aleatório (ex: "Gruk", "Thorn", etc.)
-    current_enemy.name = get_random_enemy_name()
-    print(f"Você entrou em combate com {current_enemy.name} the {enemy_type}!")
-    print(f"{current_enemy.name} diz: {get_enemy_taunt()}")
-    
-    # Reset enemy life to base value
-    current_enemy.life = current_enemy.base_life
-    
-    while charactersys.Player.life > 0 and current_enemy.life > 0 and not escaped:
-        ui(current_enemy)
-
+        # Victory / defeat conditions
         if current_enemy.life <= 0:
-            print(f"\n{current_enemy.name} diz: {get_defeat_phrase()}")
-            print(f"Você derrotou o {current_enemy.name}!")
-            charactersys.Player.xp += current_enemy.lvl * 5  # Give XP based on enemy level
-            print(f"Ganhou {current_enemy.lvl * 5} XP! Total: {charactersys.Player.xp} XP")
+            print(f"\n{current_enemy.name} says: {get_defeat_phrase()}")
+            print(f"You defeated {current_enemy.name}!")
+            xp_gain = current_enemy.lvl * 5
+            charactersys.Player.xp += xp_gain
+            print(f"You gained {xp_gain} XP! Total: {charactersys.Player.xp} XP")
 
-            # Loot items
+            # Loot system
             looted_items = [item for item in current_enemy.inventory if item in ITEMS]
-            if looted_items:
-                print(f"{current_enemy.name} dropped: {', '.join(ITEMS[item].name for item in looted_items)}")
-                for item in looted_items:
-                    choice = input(f"Do you want to pick up {ITEMS[item].name}? (y/n): ")
-                    if choice.lower() == 'y':
-                        charactersys.Player.inventory.append(item)
-                        print(f"{ITEMS[item].name} added to inventory.")
-                    else:
-                        print(f"You left {ITEMS[item].name} behind.")
+            for item in looted_items:
+                choice = input(f"{current_enemy.name} dropped {ITEMS[item].name}. Pick it up? (y/n): ")
+                if choice.lower() == "y":
+                    charactersys.Player.inventory.append(item)
+                    print(f"{ITEMS[item].name} added to your inventory.")
+                else:
+                    print(f"You left {ITEMS[item].name} behind.")
             break
+
         elif charactersys.Player.life <= 0:
-            print("\nVocê foi derrotado!")
+            print("\nYou were defeated!")
             break
-        
-# Start combat only when run directly
+
+
 if __name__ == "__main__":
     pass

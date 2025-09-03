@@ -1,0 +1,100 @@
+{
+  "skills": {
+    "physical": [
+      {
+        "id": "ground_slam",
+        "name": "Ground Slam",
+        "description": "A crushing attack that shakes the ground and damages enemies nearby",
+        "damage": 14,
+        "mana_cost": 5,
+        "type": "physical",
+        "level_required": 4,
+        "target": "all",
+        "cooldown": 2
+      },
+      {
+        "id": "smash",
+        "name": "Smash",
+        "description": "A strong overhead strike dealing heavy damage to a single enemy",
+        "damage": 18,
+        "mana_cost": 6,
+        "type": "physical",
+        "level_required": 5,
+        "target": "enemy",
+        "cooldown": 2
+      },
+      {
+        "id": "quick_stab",
+        "name": "Quick Stab",
+        "description": "A fast and precise stab that deals light damage with low cost",
+        "damage": 7,
+        "mana_cost": 2,
+        "type": "physical",
+        "level_required": 2,
+        "target": "enemy",
+        "cooldown": 0
+      },
+      {
+        "id": "tail_whip",
+        "name": "Tail Whip",
+        "description": "A sweeping tail strike that damages and may stagger enemies",
+        "damage": 10,
+        "mana_cost": 4,
+        "type": "physical",
+        "level_required": 3,
+        "target": "all",
+        "cooldown": 1
+      },
+      {
+        "id": "bite",
+        "name": "Bite",
+        "description": "A savage bite attack with a chance to cause bleeding",
+        "damage": 12,
+        "mana_cost": 3,
+        "type": "physical",
+        "level_required": 3,
+        "target": "enemy",
+        "cooldown": 1
+      },
+      {
+        "id": "bone_throw",
+        "name": "Bone Throw",
+        "description": "Hurls a sharp bone fragment at an enemy",
+        "damage": 9,
+        "mana_cost": 2,
+        "type": "physical",
+        "level_required": 2,
+        "target": "enemy",
+        "cooldown": 0
+      }
+    ],
+    "magical": [
+      {
+        "id": "fire_breath",
+        "name": "Fire Breath",
+        "description": "Unleashes a cone of flames that engulfs all enemies",
+        "damage": 16,
+        "mana_cost": 10,
+        "type": "magical",
+        "level_required": 5,
+        "target": "all",
+        "cooldown": 2
+      },
+      {
+        "id": "dissolve",
+        "name": "Dissolve",
+        "description": "Casts a corrosive spell that melts armor and deals damage over time",
+        "damage": 8,
+        "mana_cost": 7,
+        "type": "magical",
+        "level_required": 4,
+        "target": "enemy",
+        "cooldown": 0
+      }
+    ],
+    "support": []
+  },
+  "skill_categories": ["physical", "magical", "support"],
+  "version": "1.1.0",
+  "last_updated": "2025-09-03"
+}

@@ -24,7 +24,7 @@ Goblin.base_life = Goblin.life
 Orc = Character(
     name="Orc",
     class_="enemy",
-    life=18,
+    life=50,
     mana=0,
     xp=0,
     lvl=2,
@@ -167,3 +167,6 @@ DragonWhelp = Character(
     status_effects=[]
 )
 DragonWhelp.base_life = DragonWhelp.life
+
+# This will help for debug porpuses
+enemies = [DragonWhelp, DarkMage, Ogre, Orc, Bandit, Slime, Skeleton, Goblin]

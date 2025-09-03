@@ -25,9 +25,14 @@ if __name__ == "__main__":
                 if skill["level_required"] <= charactersys.Player.lvl:
                     charactersys.skills_disponiveis.append(skill)
 
-        # Main game loop
-        print(f"\n🎮 Welcome, {charactersys.Player.name}! Your adventure begins now...")
+        # Main game loop with isekai intro tmp lore! 
+        print("\n✨ A blinding light surrounds you...")
+        print("Your last memory fades away as the sound of a distant bell echoes.")
+        print("When you open your eyes, you are no longer in your world...")
+        print(f"A mysterious voice whispers: 'Welcome, {charactersys.Player.name}... to the realm beyond.'")
+        print("\n🌍 You have been summoned into a strange land filled with danger and opportunity.")
         print("Use W/A/S/D to move, I for inventory, SV to save, L to load, Q to quit")
+        input("Press enter to continue")
 
         while True:
             if charactersys.Player.life <= 0:
