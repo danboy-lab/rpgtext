@@ -13,14 +13,18 @@
 
 # TODO: Language Support
 
-- [ ] Fix existing language inconsistencies (currently mixing Portuguese and English).
+- [x] Fix existing language inconsistencies (currently mixing Portuguese and English).
 - [ ] Add a language selection option for the player.
 - [ ] Test language switching functionality.
 - [ ] Integrate language support into all game systems.
 
+# TODO: VISUAL
+
+- [ ] Implement Textual framework for TUI (Terminal User Interface)
+
 # TODO: Commands System
 
-- [ ] Replace static option display with a `/help` command to list all available commands.
+- [x] Replace static option display with a `/help` command to list all available commands.
 - [ ] Create a well-documented function that defines each command and its behavior.
 - [ ] Test command functionality.
 - [ ] Integrate the command system into the main game loop.
