@@ -41,10 +41,5 @@ if __name__ == "__main__":
             r = random.randint(1, 10)
             display_map()
             move()
-            if r > 5:
-                combat_loop()
-                lvlsystem()
-            else:
-                print("...")
     else:
         print("Game not started. Exiting...")

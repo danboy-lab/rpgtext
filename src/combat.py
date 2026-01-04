@@ -166,6 +166,9 @@ def combat_loop():
                 if choice.lower() == "y":
                     charactersys.Player.inventory.append(item)
                     print(f"{ITEMS[item].name} added to your inventory.")
+                    print(f"You have won {current_enemy.gold} coins of gold!")
+                    charactersys.Player.gold += current_enemy.gold
+                    print(f"You have now {charactersys.Player.gold} coins of gold!")
                 else:
                     print(f"You left {ITEMS[item].name} behind.")
             break

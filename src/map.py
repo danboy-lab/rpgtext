@@ -1,7 +1,8 @@
 from showstats import *
 from inventory import *
 import random
-
+from combat import *
+from lvlsys import *
 def generate_map(rows=5, cols=5, min_val=0, max_val=5):
     """Gera uma matriz de mapa dinâmica."""
     return [[random.randint(min_val, max_val) for _ in range(cols)] for _ in range(rows)]
@@ -36,8 +37,9 @@ def display_map():
         print()
 
 def move():
-    """Move o player com base na tecla w/a/s/d"""
-    d = input("Move (w/a/s/d, i para inventário, sv para salvar, l para carregar, q para sair, o para abrir status): ").strip().lower()
+    """Commands"""
+    print("In case you dont know what to do, maybe you shall try help command")
+    d = input("~>").strip().lower()
     if d == 'q':
         return False
     # May return to main menu in a further version
@@ -54,20 +56,30 @@ def move():
         return True
     elif d == 'o':
         manage_status()
-
+    elif d == 'help':
+        from menu import help
+        help()
     r, c = player_pos
     if d == 'w' and r > 0:
         player_pos[0] -= 1
+        combat_loop()
+        lvlsystem()
     elif d == 's' and r < len(map_data) - 1:
         player_pos[0] += 1
+        combat_loop()
+        lvlsystem()
     elif d == 'a' and c > 0:
         player_pos[1] -= 1
+        combat_loop()
+        lvlsystem()
     elif d == 'd' and c < len(map_data[0]) - 1:
         player_pos[1] += 1
+        combat_loop()
+        lvlsystem()
 
     else:
-        print("Movimento inválido.")
-        return True  # continua o loop mesmo com tecla inválida
+        print("Invalid movement.")
+        return False  # continua o loop mesmo com tecla inválida
 
     print(f"Moved to {player_pos}")
     return True

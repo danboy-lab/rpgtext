@@ -155,3 +155,11 @@ def open_github():
         print(f"Please visit: {github_url}")
 
     input("Press Enter to return to main menu...")
+
+def help():
+    print("W/A/S/D - Move around the map")
+    print("SV  - Save game")
+    print("I - Open inventory")
+    print("L - Load game")
+    print("Q - Quit game")
+    print("O - Open status")

@@ -64,7 +64,6 @@
 
 ### Prerequisites
 - Python 3.6 or higher
-- No external dependencies required (uses only Python standard library)
 
 ### Installation
 1. Clone the repository:
@@ -225,4 +224,3 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 🙏 Acknowledgments
 - Wish to make a cool isekai vibe in the future ;D
 - Inspired by classic text-based RPG games
-- Built with Python standard library

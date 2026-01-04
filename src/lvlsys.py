@@ -5,6 +5,6 @@ def lvlsystem():
     if charactersys.Player.xp >= xptonextlvl:
         charactersys.Player.lvl += 1
         charactersys.Player.xp = 0
-        print(f"Você passou de nivel! agora você é lvl {charactersys.Player.lvl} parabéns!")
+        print(f"LEVEL UP! YOU ARE NOW  LEVEL {charactersys.Player.lvl}!")
     else:
-        print(f"Você tem {charactersys.Player.xp} de xp! Precisa de {xptonextlvl} para o próximo nível.")
+        print(f"{charactersys.Player.xp} / {xptonextlvl}.")
