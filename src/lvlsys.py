@@ -1,27 +1,41 @@
 import charactersys
 
-def check_level_up():
+def calculate_xp_to_next_level():
+    """Calculates how much XP is needed to reach the next level."""
+    xptonextlvl = charactersys.Player.lvl ** 2
+    return xptonextlvl
+
+def perform_level_up():
+    """Executes the level up: increases level and resets/subtracts XP."""
+    charactersys.Player.lvl += 1
+    # Opção melhorada: mantém XP excedente
+    xptonextlvl = calculate_xp_to_next_level()  # XP needed for the new next level
+    excess_xp = charactersys.Player.xp - (charactersys.Player.lvl - 1) ** 2
+    charactersys.Player.xp = excess_xp
+    print(f"LEVEL UP! YOU ARE NOW LEVEL {charactersys.Player.lvl}!")
+
+def show_xp_progress():
+    """Shows current XP progress toward the next level."""
+    xptonextlvl = calculate_xp_to_next_level()
+    print(f"{charactersys.Player.xp} / {xptonextlvl}.")
+
+def lvlsystem():
     """
-    Checks if the player has enough XP to level up.
-    If yes, levels up the player (possibly multiple times) and keeps excess XP.
-    Prints progress or level up messages.
-    Returns True if at least one level was gained, False otherwise.
+    Main leveling system function.
+    Checks if the player can level up (possibly multiple times)
+    and shows progress when no more level ups are possible.
     """
-    leveled_up = False
+    leveled_this_call = False
     
     while True:
-        # XP required to reach the NEXT level (current level squared)
-        xp_needed = charactersys.Player.lvl ** 2
+        xptonextlvl = calculate_xp_to_next_level()
         
-        if charactersys.Player.xp >= xp_needed:
-            # Level up!
-            charactersys.Player.xp -= xp_needed
-            charactersys.Player.lvl += 1
-            leveled_up = True
-            print(f"LEVEL UP! YOU ARE NOW LEVEL {charactersys.Player.lvl}!")
+        if charactersys.Player.xp >= xptonextlvl:
+            perform_level_up()
+            leveled_this_call = True
         else:
-            # Not enough XP yet → show progress
-            print(f"{charactersys.Player.xp} / {xp_needed} XP to next level.")
+            show_xp_progress()
             break
     
-    return leveled_up
+    # Opcional: retornar se houve level up nesta chamada
+    return leveled_this_call
