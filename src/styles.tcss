@@ -1,0 +1,26 @@
+#title {
+    text-style: bold;
+    text-align: center;
+    color: ansi_bright_green;
+    margin: 2 0;
+}
+
+#menu {
+    align: center middle;
+    height: 100%;
+}
+
+Button {
+    width: 30;
+    margin: 1;
+}
+
+#combat_area {
+    align: center top;
+}
+
+Log {
+    height: 50%;
+    border: tall ascii;
+    margin: 1;
+}
