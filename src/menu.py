@@ -145,7 +145,7 @@ def show_about():
 
 def open_github():
     """Open the GitHub repository in the default browser"""
-    github_url = "https://github.com/yourusername/rpg-text-adventure"  # Replace with actual GitHub URL
+    github_url = "https://github.com/danboy-lab/rpgtext"
     print(f"\n🔗 Opening GitHub repository: {github_url}")
     try:
         webbrowser.open(github_url)
