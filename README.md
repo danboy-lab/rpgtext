@@ -1,10 +1,17 @@
+<h1 align="center">Text-based RPG</h1>
+
 <p align="center">
-  <h1 align="center"> Text based RPG</h1>
-  <p>Built in Python with character progression, turn-based combat, map exploration, NPC interactions, and a menu-driven interface.</p>
-  <p>
-    <strong>Technologies Used:</strong><br>
-    🐍 Python 3.6+ &nbsp;&nbsp;|&nbsp;&nbsp; 📄 JSON &nbsp;&nbsp;|&nbsp;&nbsp; ⚙️ Standard Library
-  </p>
+  Built in Python with character progression, turn-based combat, map exploration,
+  NPC interactions, and a menu-driven interface.
+</p>
+
+<p align="center">
+  <strong>Technologies Used:</strong><br>
+  🐍 Python 3.6+ &nbsp;&nbsp;|&nbsp;&nbsp;
+  🖥️ Textual 7.0.0 &nbsp;&nbsp;|&nbsp;&nbsp;
+  🌐 requests 2.32.5 &nbsp;&nbsp;|&nbsp;&nbsp;
+  📄 JSON &nbsp;&nbsp;|&nbsp;&nbsp;
+  ⚙️ Python Standard Library
 </p>
 
 
