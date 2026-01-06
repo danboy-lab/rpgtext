@@ -9,6 +9,8 @@
 
 
 ## 🎯 Features
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdanboy-lab%2Frpgtext.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdanboy-lab%2Frpgtext?ref=badge_shield)
+
 
 ### Core Systems
 - **Character System** (`src/charactersys.py`)
@@ -220,6 +222,9 @@ Thank you for helping improve RPG Text Adventure! 🎮
 ## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdanboy-lab%2Frpgtext.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdanboy-lab%2Frpgtext?ref=badge_large)
 
 ## 🙏 Acknowledgments
 - Wish to make a cool isekai vibe in the future ;D
