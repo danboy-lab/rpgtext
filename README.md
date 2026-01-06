@@ -224,9 +224,9 @@ git push origin feature/your-feature-name
 
 Thank you for helping improve RPG Text Adventure! 🎮
 
-## 📝 License
+# Credits
 
-This project is open source and available under the [MIT License](LICENSE).
+https://github.com/Textualize/textual
 
 ## 🙏 Acknowledgments
 - Wish to make a cool isekai vibe in the future ;D
