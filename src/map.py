@@ -1,4 +1,5 @@
 import sys
+import time
 from showstats import *
 from inventory import *
 import random
@@ -131,4 +132,5 @@ def move():
     if random.randint(1, 100) <= 30:
         combat_loop()
         lvlsystem()
+        time.sleep(1)
         return True
