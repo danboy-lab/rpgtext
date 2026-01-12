@@ -144,19 +144,6 @@ rpgtext/
 ├── requirements.txt
 └── src
     ├── __init__.py
-    ├── __pycache__
-    │   ├── apis.cpython-314.pyc
-    │   ├── charactersys.cpython-314.pyc
-    │   ├── combat.cpython-314.pyc
-    │   ├── enemys.cpython-314.pyc
-    │   ├── generate_player.cpython-314.pyc
-    │   ├── inventory.cpython-314.pyc
-    │   ├── lvlsys.cpython-314.pyc
-    │   ├── map.cpython-314.pyc
-    │   ├── menu.cpython-314.pyc
-    │   ├── save_load.cpython-314.pyc
-    │   ├── showstats.cpython-314.pyc
-    │   └── skillsys.cpython-314.pyc
     ├── apis.py
     ├── app.py
     ├── charactersys.py
@@ -191,7 +178,6 @@ python -m pytest tests/
 - Update documentation accordingly
 
 ## 📊 Version History
-
 - v0.1.0: Initial release with core systems integrated
   - Basic combat, leveling, and map navigation
   - Single enemy type (Goblin)
