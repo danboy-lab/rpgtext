@@ -126,42 +126,57 @@ python src/main.py
 ## 📁 Project Structure
 
 ```
-rpg-text-adventure/
-├── src/                          # Source code directory
-│   ├── __init__.py              # Package initialization
-│   ├── main.py                  # Main entry point & game loop
-│   ├── menu.py                  # Menu system & UI
-│   ├── charactersys.py          # Character classes & stats
-│   ├── combat.py                # Combat mechanics
-│   ├── enemys.py                # Enemy definitions
-│   ├── map.py                   # Map generation & navigation
-│   ├── skillsys.py              # Skills & abilities system
-│   ├── save_load.py             # Save/load functionality
-│   ├── inventory.py             # Inventory management
-│   ├── lvlsys.py                # Leveling system
-│   ├── generate_player.py       # Character generation
-│   ├── apis.py                  # External API integrations
-│   └── showstats.py             # Statistics display
-├── data/                        # Game data files
-│   ├── skills.json              # Skills database
-│   └── enemy_phrases.json       # Enemy dialogue
-├── tests/                       # Test suite
-│   ├── __init__.py
-│   ├── conftest.py              # Test configuration
-│   ├── test_charactersys.py     # Character system tests
-│   ├── test_combat.py           # Combat system tests
-│   ├── test_enemys.py           # Enemy system tests
-│   ├── test_save_load.py        # Save/load tests
-│   ├── test_lvlsys.py           # Leveling system tests
-│   └── test_*.py                # Other test files
-├── docs/                        # Documentation
-│   ├── ROADMAP.md               # Development roadmap
-│   └── TODO.md                  # Task tracking
-├── .gitignore                   # Git ignore rules
-├── requirements.txt             # Python dependencies
-├── savegame.json                # Auto-generated save file
-└── README.md                    # This file
+rpgtext/
+├── README.md
+├── data
+│   ├── enemy_phrases.json
+│   ├── enemy_skills.json
+│   ├── locations.json
+│   ├── maps.json
+│   └── skills.json
+├── docs
+│   ├── ROADMAP.MD
+│   └── TODO.md
+├── features
+│   └── atribute_tree.py
+├── poetry.lock
+├── pyproject.toml
+├── requirements.txt
+└── src
+    ├── __init__.py
+    ├── __pycache__
+    │   ├── apis.cpython-314.pyc
+    │   ├── charactersys.cpython-314.pyc
+    │   ├── combat.cpython-314.pyc
+    │   ├── enemys.cpython-314.pyc
+    │   ├── generate_player.cpython-314.pyc
+    │   ├── inventory.cpython-314.pyc
+    │   ├── lvlsys.cpython-314.pyc
+    │   ├── map.cpython-314.pyc
+    │   ├── menu.cpython-314.pyc
+    │   ├── save_load.cpython-314.pyc
+    │   ├── showstats.cpython-314.pyc
+    │   └── skillsys.cpython-314.pyc
+    ├── apis.py
+    ├── app.py
+    ├── charactersys.py
+    ├── combat.py
+    ├── enemys.py
+    ├── generate_items.py
+    ├── generate_maps.py
+    ├── generate_player.py
+    ├── inventory.py
+    ├── lvlsys.py
+    ├── main.py
+    ├── map.py
+    ├── menu.py
+    ├── npcs.py
+    ├── save_load.py
+    ├── showstats.py
+    ├── skillsys.py
+    └── styles.tcss
 ```
+
 
 ## 🛠 Development
 
