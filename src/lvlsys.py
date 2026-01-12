@@ -18,7 +18,6 @@ def show_xp_progress():
     """Shows current XP progress toward the next level."""
     xptonextlvl = calculate_xp_to_next_level()
     print(f"{charactersys.Player.xp} / {xptonextlvl}.")
-    input()
 def lvlsystem():
     """
     Main leveling system function.

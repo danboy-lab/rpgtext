@@ -7,7 +7,8 @@ from combat import *
 from lvlsys import *
 import json
 import os
-
+from rich.panel import Panel
+from rich import print
 def generate_map(rows=5, cols=5, min_val=0, max_val=5):
     return [[random.randint(min_val, max_val) for _ in range(cols)] for _ in range(rows)]
 
@@ -46,15 +47,27 @@ def display_map():
         4: ",",
         5: "^",
     }
-    print("\n=== RPG MAP ===")
+
+    output = []
+
     for r, row in enumerate(map_data):
+        line = ""
         for c, tile in enumerate(row):
             if [r, c] == player_pos:
-                print("[P]", end=" ")
+                line += "[bold red][P][/bold red] "
             else:
                 symbol = tile_symbols.get(tile, "?")
-                print(f" {symbol} ", end=" ")
-        print()
+                line += f" {symbol} "
+        output.append(line)
+
+    print(
+        Panel.fit(
+            "\n".join(output),
+            title="[bold red]RPGTEXT[/bold red]",
+            border_style="red"
+        )
+    )
+
 
 def move():
     global map_data
@@ -85,6 +98,7 @@ def move():
     if d == 'w':
         if r > 0:
             player_pos[0] -= 1
+            print("\n" * 20)
         else:
             maps_data["maps"][maps_data["current"]] = map_data
             maps_data["current"] += 1
@@ -96,6 +110,7 @@ def move():
     elif d == 's':
         if r < len(map_data) - 1:
             player_pos[0] += 1
+            print("\n" * 20)
         else:
             maps_data["maps"][maps_data["current"]] = map_data
             maps_data["current"] += 1
@@ -107,6 +122,7 @@ def move():
     elif d == 'a':
         if c > 0:
             player_pos[1] -= 1
+            print("\n" * 20)
         else:
             maps_data["maps"][maps_data["current"]] = map_data
             maps_data["current"] -= 1 if maps_data["current"] > 0 else 0
@@ -117,6 +133,7 @@ def move():
     elif d == 'd':
         if c < len(map_data[0]) - 1:
             player_pos[1] += 1
+            print("\n" * 20)
         else:
             maps_data["maps"][maps_data["current"]] = map_data
             maps_data["current"] += 1
@@ -132,5 +149,4 @@ def move():
     if random.randint(1, 100) <= 30:
         combat_loop()
         lvlsystem()
-        time.sleep(1)
         return True

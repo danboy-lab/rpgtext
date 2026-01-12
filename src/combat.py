@@ -6,7 +6,7 @@ from enemys import Goblin, Orc, Skeleton, Slime
 from skillsys import data
 from apis import get_random_enemy_name, get_enemy_taunt, get_attack_reaction, get_defeat_phrase
 from inventory import ITEMS, show_inventory
-
+from rich import print
 # List of available enemies
 ENEMIES = [Goblin, Orc, Skeleton, Slime]
 
@@ -88,7 +88,7 @@ def enemy_attack(current_enemy):
     print(f"\n{current_enemy.name}'s turn!")
     damage = max(1, current_enemy.atk - charactersys.Player.defense)
     charactersys.Player.life -= damage
-    print(f"{current_enemy.name} attacked and dealt {damage} damage!")
+    print(f"[italic red]{current_enemy.name} attacked and dealt {damage} damage![/ italic red]")
     print(f"Your HP: {charactersys.Player.life}")
     print(f"{current_enemy.name} says: {get_attack_reaction()}")
 
@@ -96,9 +96,9 @@ def enemy_attack(current_enemy):
 def attempt_escape(current_enemy):
     """Attempt to escape from combat."""
     if charactersys.Player.agi > current_enemy.agi:
-        print("You successfully escaped!")
+        print("[bold green]You successfully escaped![/bold green]")
         return True
-    print("You tried to escape but failed, and took a hit!")
+    print("[bold red]You tried to escape but failed, and took a hit![/bold red]")
     enemy_attack(current_enemy)
     return False
 

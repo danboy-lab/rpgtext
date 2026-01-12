@@ -41,6 +41,5 @@ if __name__ == "__main__":
             r = random.randint(1, 10)
             display_map()
             move()
-            print("\n" * 20)
     else:
         print("Game not started. Exiting...")
