@@ -1,18 +1,19 @@
 [project]
 name = "rpgtext"
 version = "0.1.0"
-description = "Basic RPG Text Based Game made in Python"
-authors = [
-    {name = "N"}
-]
+description = "Text-based RPG game written in Python"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
-    "requests (>=2.32.5,<3.0.0)",
-    "rich (>=14.2.0,<15.0.0)"
+    "requests>=2.32,<3.0",
+    "rich>=14.2,<15.0",
 ]
 
+[tool.uv]
+# This project is an application, not a library
+package = false
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+# Kept minimal for compatibility, but not actively used
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"

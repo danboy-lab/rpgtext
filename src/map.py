@@ -1,42 +1,25 @@
 import sys
-import time
-from showstats import *
-from inventory import *
 import random
-from combat import *
-from lvlsys import *
-import json
-import os
 from rich.panel import Panel
 from rich import print
-def generate_map(rows=5, cols=5, min_val=0, max_val=5):
-    return [[random.randint(min_val, max_val) for _ in range(cols)] for _ in range(rows)]
+from rich.console import Console
+
+from showstats import *
+from inventory import *
+from combat import *
+from lvlsys import *
+
+from map_storage import load_maps, save_maps, generate_map
 
 ROWS = 10
 COLS = 10
 
-DATA_DIR = "data"
-MAPS_FILE = os.path.join(DATA_DIR, "maps.json")
+console = Console()
 
-os.makedirs(DATA_DIR, exist_ok=True)
-
-if os.path.exists(MAPS_FILE):
-    with open(MAPS_FILE, "r") as f:
-        maps_data = json.load(f)
-else:
-    maps_data = {"maps": [], "current": 0}
-
-if not maps_data["maps"]:
-    map_data = generate_map(ROWS, COLS)
-    maps_data["maps"].append(map_data)
-else:
-    map_data = maps_data["maps"][maps_data["current"]]
+maps_data, map_data = load_maps(ROWS, COLS)
 
 player_pos = [random.randint(0, ROWS - 1), random.randint(0, COLS - 1)]
 
-def save_maps():
-    with open(MAPS_FILE, "w") as f:
-        json.dump(maps_data, f)
 
 def display_map():
     tile_symbols = {
@@ -56,8 +39,7 @@ def display_map():
             if [r, c] == player_pos:
                 line += "[bold red][P][/bold red] "
             else:
-                symbol = tile_symbols.get(tile, "?")
-                line += f" {symbol} "
+                line += f" {tile_symbols.get(tile, '?')} "
         output.append(line)
 
     print(
@@ -71,82 +53,92 @@ def display_map():
 
 def move():
     global map_data
-    print("In case you dont know what to do, maybe you shall try help command")
+
     d = input("~>").strip().lower()
-    if d == 'q':
-        save_maps()
-        return sys.exit("Thanks for playing!")
-    elif d == 'sv':
+    moved = False
+
+    if d == "q":
+        save_maps(maps_data)
+        sys.exit("Thanks for playing!")
+
+    elif d == "sv":
         from save_load import save_game
         save_game()
-        return True
-    elif d == 'l':
+        return False
+
+    elif d == "l":
         from save_load import load_game
         load_game()
-        return True
-    elif d == 'i':
+        return False
+
+    elif d == "i":
         show_inventory()
-        return True
-    elif d == 'o':
+        return False
+
+    elif d == "o":
         manage_status()
-    elif d == 'help':
+        return False
+
+    elif d == "help":
         from menu import help
         help()
+        return False
 
     r, c = player_pos
 
-    if d == 'w':
+    if d == "w":
         if r > 0:
             player_pos[0] -= 1
-            print("\n" * 20)
+            moved = True
         else:
             maps_data["maps"][maps_data["current"]] = map_data
             maps_data["current"] += 1
             map_data = generate_map(ROWS, COLS)
             maps_data["maps"].append(map_data)
             player_pos[0] = ROWS - 1
-            save_maps()
-            return True
-    elif d == 's':
+            moved = True
+
+    elif d == "s":
         if r < len(map_data) - 1:
             player_pos[0] += 1
-            print("\n" * 20)
+            moved = True
         else:
             maps_data["maps"][maps_data["current"]] = map_data
             maps_data["current"] += 1
             map_data = generate_map(ROWS, COLS)
             maps_data["maps"].append(map_data)
             player_pos[0] = 0
-            save_maps()
-            return True
-    elif d == 'a':
+            moved = True
+
+    elif d == "a":
         if c > 0:
             player_pos[1] -= 1
-            print("\n" * 20)
+            moved = True
         else:
             maps_data["maps"][maps_data["current"]] = map_data
             maps_data["current"] -= 1 if maps_data["current"] > 0 else 0
             map_data = maps_data["maps"][maps_data["current"]]
             player_pos[1] = COLS - 1
-            save_maps()
-            return True
-    elif d == 'd':
+            moved = True
+
+    elif d == "d":
         if c < len(map_data[0]) - 1:
             player_pos[1] += 1
-            print("\n" * 20)
+            moved = True
         else:
             maps_data["maps"][maps_data["current"]] = map_data
             maps_data["current"] += 1
             map_data = generate_map(ROWS, COLS)
             maps_data["maps"].append(map_data)
             player_pos[1] = 0
-            save_maps()
-            return True
-    else:
-        print("Invalid movement.")
-        return False
+            moved = True
 
-    if random.randint(1, 100) <= 30:
-        combat_loop()
-        lvlsystem()
-        return True
+    if moved:
+        save_maps(maps_data)
+        console.clear()
+
+        if random.randint(1, 100) <= 30:
+            combat_loop()
+            lvlsystem()
+
+    return moved
