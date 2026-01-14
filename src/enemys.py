@@ -15,7 +15,7 @@ Goblin = Character(
     dex=2,
     luck=1,
     skills=["Bite"],
-    inventory=["tooth", "leather_helmet"],
+    inventory=["tooth", "leather_helmet", "red_potion"],
     gold=2,
     status_effects=[]
 )

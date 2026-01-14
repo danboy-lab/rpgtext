@@ -32,7 +32,7 @@ ITEMS = {
         id="club",
         name="Orc Club",
         type="Weapon",
-        damage=8,
+        damage=18,
         value=15,
         rarity="Common",
         slot="weapon"
@@ -127,6 +127,15 @@ ITEMS = {
         extra="+40% Ice Resistance, +5 Ice Damage",
         slot="accessory"
     ),
+    "common_fish": InventoryItem(
+        id="common_fish",
+        name="Common Fish",
+        type="Consumable",
+        value=10,
+        rarity="Common",
+        effect_value=20,
+        extra="Restore HP"
+    )
 }
 
 def add_inventory_item(item_id: str):

@@ -8,7 +8,7 @@ from showstats import *
 from inventory import *
 from combat import *
 from lvlsys import *
-
+from camping import *
 from map_storage import load_maps, save_maps, generate_map
 
 ROWS = 10
@@ -60,7 +60,7 @@ def move():
     if d == "q":
         save_maps(maps_data)
         sys.exit("Thanks for playing!")
-
+        
     elif d == "sv":
         from save_load import save_game
         save_game()

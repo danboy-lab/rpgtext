@@ -20,5 +20,8 @@
     "Mina Abandonada de Branth",
     "Jardins de Lysandra",
     "Mercado de Rivensport"
+  ],
+  "display_location": [
+    "[0, 2, 5, 1, 1, 0, 3, 4, 1, 3]"
   ]
 }
